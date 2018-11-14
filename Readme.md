@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Iana Alekseeva](https://up.htmlacademy.ru/javascript/16/user/505469).
-* Наставник: `Неизвестно`.
+* Наставник: [Eugeniy Faller](https://up.htmlacademy.ru/javascript/16/user/505933).
 
 ---
 
