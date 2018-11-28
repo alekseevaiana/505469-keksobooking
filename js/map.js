@@ -41,11 +41,6 @@ var housePhotos = [
 
 var houseType = ['palace', 'flat', 'house', 'bungalo'];
 
-// /**
-//  * Shuffles array in place.
-//  * @param {Array} a items An array containing the items.
-//  * https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
-//  */
 function shuffle(a) {
   var j;
   var x;
@@ -149,11 +144,11 @@ var translateHouseType = function (type) {
   return type;
 };
 
-// var renderHouseFeatures = fu
-
 var renderCard = function (house) {
   var cardElementTemplate = document.querySelector('#card').content.querySelector('.map__card'); // нашла шаблон карточкм
   var cardElement = cardElementTemplate.cloneNode(true); // скопировала шаблон карточки
+
+
   cardElement.querySelector('.popup__title').textContent = house.offer.title; // заполнить карточку данными из одного определенного домика
   cardElement.querySelector('.popup__text--address').textContent = house.offer.address; // заполнить карточку данными из одного определенного домика
   cardElement.querySelector('.popup__text--price').textContent = house.offer.price + '₽/ночь'; // цена
@@ -161,21 +156,29 @@ var renderCard = function (house) {
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + house.offer.checkin[1] + ', выезд до ' + house.offer.checkout[2]; // чек ин и чек аут
   cardElement.querySelector('.popup__description').textContent = house.offer.description; // описание
   cardElement.querySelector('.popup__type').textContent = translateHouseType(house.offer.type);
-  var featuresEl = cardElement.querySelector('.popup__features');
-  featuresEl.innerHTML = '';
-  var features = house.offer.features;
-  for (var i = 0; i < features.length; i++) {
-    var feature = features[i];
-    var li = document.createElement('li');
-    li.className = 'popup__feature popup__feature--' + feature;
-    featuresEl.appendChild(li);
-  }
+
+  var featuresEl = cardElement.querySelector('.popup__features'); // находим список с фичами
+  featuresEl.innerHTML = ''; // очищаем содержимое
+  featuresEl.appendChild(createFeaturesList(house))
+
+  var houseNewPhotoPlace = cardElement.querySelector('.popup__photos');
+  houseNewPhotoPlace.innerHTML = ''; // удалили содержимое дива, в который вставили img (img там уже был, мы копировали с него)
+  houseNewPhotoPlace.appendChild(createHouseNewPhotos(house));
+
   return cardElement;
 };
 
-var houses = getNewHouses();
-var card = renderCard(houses[0]);
-document.querySelector('.map').appendChild(card);
+var createFeaturesList = function(house) {
+  var fragment = document.createDocumentFragment()
+  var features = house.offer.features; // вводим переменную фичурс, которая равна указанному массиву
+  for (var i = 0; i < features.length; i++) {
+    var feature = features[i]; // одна фича равна i-нному элементы массива
+    var li = document.createElement('li'); // создаем лишку
+    li.className = 'popup__feature popup__feature--' + feature; // даем лишке класс
+    fragment.appendChild(li); // вставляем в список с фичами лишку
+  }
+  return fragment;
+}
 
 var createHousePhotoElement = function (housePhotoUrl) {
   var similarPhotoElementTemplate = document.querySelector('#card').content.querySelector('.popup__photo'); // шаблон изображения
@@ -184,17 +187,17 @@ var createHousePhotoElement = function (housePhotoUrl) {
   return photoElement;
 };
 
-var renderHouseNewPhotos = function (house) {
+var createHouseNewPhotos = function (house) {
   var housePhotosUrls = house.offer.photos;
   var fragment = document.createDocumentFragment();
-  var houseNewPhotoPlace = document.querySelector('.popup__photos');
   for (var j = 0; j < housePhotosUrls.length; j++) {
     var photoUrl = housePhotosUrls[j];
     var photoElement = createHousePhotoElement(photoUrl);
     fragment.appendChild(photoElement);
   }
-  houseNewPhotoPlace.innerHTML = ''; // удалили содержимое дива, в который вставили img (img там уже был, мы копировали с него)
-  houseNewPhotoPlace.appendChild(fragment);
+  return fragment;
 };
 
-renderHouseNewPhotos(houses[0]);
+var houses = getNewHouses();
+var card = renderCard(houses[0]);
+document.querySelector('.map').appendChild(card);
