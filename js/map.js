@@ -1,5 +1,5 @@
 'use strict';
-
+var NUMBER_OF_HOUSES = 8;
 var PIN_LOCATION_LEFT_MIN = 200;
 var PIN_LOCATION_LEFT_MAX = 1150;
 var PIN_LOCATION_TOP_MIN = 130;
@@ -12,7 +12,6 @@ var GUESTS_MIN = 1;
 var GUESTS_MAX = 10;
 
 var offerTitles = [
-  'Уютное гнездышко для молодожонов',
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
   'Огромный прекрасный дворец',
@@ -79,7 +78,7 @@ var getRandomHouseType = function () {
 
 var getNewHouses = function () {
   var houses = [];
-  for (var i = 0; i < 8; i++) {
+  for (var i = 0; i < NUMBER_OF_HOUSES; i++) {
     var pinLocationLeft = getIntervalNumbers(PIN_LOCATION_LEFT_MAX, PIN_LOCATION_LEFT_MIN) + 'px';
     var pinLocationTop = getIntervalNumbers(PIN_LOCATION_TOP_MAX, PIN_LOCATION_TOP_MIN) + 'px';
     var pinSrc = getAuthorAvatar(i);
@@ -108,18 +107,18 @@ var mapBlock = document.querySelector('.map');
 mapBlock.classList.remove('map--faded');
 
 var renderPin = function (house) {
-  var similarPinElementTemplate = document.querySelector('#pin').content.querySelector('.map__pin'); // нашли шаблон пина
-  var pinElement = similarPinElementTemplate.cloneNode(true); // копия шаблона пина
+  var similarPinElementTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var pinElement = similarPinElementTemplate.cloneNode(true);
   pinElement.style.left = house.location.x;
   pinElement.style.top = house.location.y;
-  pinElement.querySelector('.button__image').setAttribute('alt', house.offer.title);
-  pinElement.querySelector('.button__image').setAttribute('src', house.avatar); // нужно убрать класс и найти элемент друним способом
+  pinElement.querySelector('.map__pin img').setAttribute('alt', house.offer.title);
+  pinElement.querySelector('.map__pin img').setAttribute('src', house.avatar);
   return pinElement;
 };
 
 var renderNewPins = function (houses) {
   var fragment = document.createDocumentFragment();
-  var pinElementsList = document.querySelector('.map__pins'); // куда вставить пины
+  var pinElementsList = document.querySelector('.map__pins');
   for (var j = 0; j < houses.length; j++) {
     fragment.appendChild(renderPin(houses[j]));
   }
@@ -145,43 +144,49 @@ var translateHouseType = function (type) {
 };
 
 var renderCard = function (house) {
-  var cardElementTemplate = document.querySelector('#card').content.querySelector('.map__card'); // нашла шаблон карточкм
-  var cardElement = cardElementTemplate.cloneNode(true); // скопировала шаблон карточки
+  var cardElementTemplate = document.querySelector('#card').content.querySelector('.map__card');
+  var cardElement = cardElementTemplate.cloneNode(true);
 
+  var addTextContent = function (elementName, content) {
+    cardElement.querySelector('.popup__' + elementName).textContent = content;
+  };
 
-  cardElement.querySelector('.popup__title').textContent = house.offer.title; // заполнить карточку данными из одного определенного домика
-  cardElement.querySelector('.popup__text--address').textContent = house.offer.address; // заполнить карточку данными из одного определенного домика
-  cardElement.querySelector('.popup__text--price').textContent = house.offer.price + '₽/ночь'; // цена
-  cardElement.querySelector('.popup__text--capacity').textContent = house.offer.rooms + ' комнаты для ' + house.offer.guests + ' гостей'; // кол-во комнат и гостей
-  cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + house.offer.checkin[1] + ', выезд до ' + house.offer.checkout[2]; // чек ин и чек аут
-  cardElement.querySelector('.popup__description').textContent = house.offer.description; // описание
-  cardElement.querySelector('.popup__type').textContent = translateHouseType(house.offer.type);
+  addTextContent('title', house.offer.title);
+  addTextContent('text--address', house.offer.address);
+  addTextContent('text--price', house.offer.price + '₽/ночь');
+  addTextContent('text--capacity', house.offer.rooms + ' комнаты для ' + house.offer.guests + ' гостей');
+  addTextContent('text--time', 'Заезд после ' + house.offer.checkin[1] + ', выезд до ' + house.offer.checkout[2]);
+  addTextContent('description', house.offer.description);
+  addTextContent('type', translateHouseType(house.offer.type));
 
-  var featuresEl = cardElement.querySelector('.popup__features'); // находим список с фичами
-  featuresEl.innerHTML = ''; // очищаем содержимое
-  featuresEl.appendChild(createFeaturesList(house))
+  var featuresEl = cardElement.querySelector('.popup__features');
+  featuresEl.innerHTML = '';
+  featuresEl.appendChild(createFeaturesList(house));
 
   var houseNewPhotoPlace = cardElement.querySelector('.popup__photos');
-  houseNewPhotoPlace.innerHTML = ''; // удалили содержимое дива, в который вставили img (img там уже был, мы копировали с него)
+  houseNewPhotoPlace.innerHTML = '';
   houseNewPhotoPlace.appendChild(createHouseNewPhotos(house));
+
+  var imageElement = cardElement.querySelector('.popup__avatar');
+  imageElement.src = house.avatar;
 
   return cardElement;
 };
 
-var createFeaturesList = function(house) {
-  var fragment = document.createDocumentFragment()
-  var features = house.offer.features; // вводим переменную фичурс, которая равна указанному массиву
+var createFeaturesList = function (house) {
+  var fragment = document.createDocumentFragment();
+  var features = house.offer.features;
   for (var i = 0; i < features.length; i++) {
-    var feature = features[i]; // одна фича равна i-нному элементы массива
-    var li = document.createElement('li'); // создаем лишку
-    li.className = 'popup__feature popup__feature--' + feature; // даем лишке класс
-    fragment.appendChild(li); // вставляем в список с фичами лишку
+    var feature = features[i];
+    var li = document.createElement('li');
+    li.className = 'popup__feature popup__feature--' + feature;
+    fragment.appendChild(li);
   }
   return fragment;
-}
+};
 
 var createHousePhotoElement = function (housePhotoUrl) {
-  var similarPhotoElementTemplate = document.querySelector('#card').content.querySelector('.popup__photo'); // шаблон изображения
+  var similarPhotoElementTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
   var photoElement = similarPhotoElementTemplate.cloneNode(true);
   photoElement.src = housePhotoUrl;
   return photoElement;
