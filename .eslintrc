@@ -5,3 +5,6 @@ env:
 
 extends:
   "htmlacademy/es5"
+
+rules:
+  no-var: off
