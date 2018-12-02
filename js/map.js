@@ -1,9 +1,10 @@
 'use strict';
+
 var NUMBER_OF_HOUSES = 8;
-var PIN_LOCATION_LEFT_MIN = 200;
-var PIN_LOCATION_LEFT_MAX = 1150;
-var PIN_LOCATION_TOP_MIN = 130;
-var PIN_LOCATION_TOP_MAX = 630;
+var PIN_LOCATION_LEFT_MIN = 100;
+var PIN_LOCATION_LEFT_MAX = 1200;
+var PIN_LOCATION_TOP_MIN = 150;
+var PIN_LOCATION_TOP_MAX = 650;
 var PRICE_MIN = 1000;
 var PRICE_MAX = 1000000;
 var ROOM_NUM_MIN = 2;
@@ -103,11 +104,9 @@ var getNewHouses = function () {
   return houses;
 };
 
-var mapBlock = document.querySelector('.map');
-mapBlock.classList.remove('map--faded');
+var similarPinElementTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var renderPin = function (house) {
-  var similarPinElementTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var pinElement = similarPinElementTemplate.cloneNode(true);
   pinElement.style.left = house.location.x;
   pinElement.style.top = house.location.y;
@@ -116,6 +115,8 @@ var renderPin = function (house) {
   return pinElement;
 };
 
+
+// добавляет новые пины
 var renderNewPins = function (houses) {
   var fragment = document.createDocumentFragment();
   var pinElementsList = document.querySelector('.map__pins');
@@ -123,9 +124,8 @@ var renderNewPins = function (houses) {
     fragment.appendChild(renderPin(houses[j]));
   }
   pinElementsList.appendChild(fragment);
+  return pinElementsList;
 };
-
-renderNewPins(getNewHouses());
 
 var translateHouseType = function (type) {
   if (type === 'palace') {
@@ -143,6 +143,7 @@ var translateHouseType = function (type) {
   return type;
 };
 
+// добавляет карточку
 var renderCard = function (house) {
   var cardElementTemplate = document.querySelector('#card').content.querySelector('.map__card');
   var cardElement = cardElementTemplate.cloneNode(true);
@@ -204,5 +205,37 @@ var createHouseNewPhotos = function (house) {
 };
 
 var houses = getNewHouses();
-var card = renderCard(houses[0]);
-document.querySelector('.map').appendChild(card);
+
+// обработка событий
+
+var mapBlock = document.querySelector('.map');
+var adForm = document.querySelector('.ad-form');
+var mainPin = document.querySelector('.map__pin--main');
+
+var onMainPinClick = function (evt) {
+  mapBlock.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  renderNewPins(houses);
+  addPinEvents();
+  mainPin.removeEventListener('mouseup', onMainPinClick); // удаляет обработчик после первого выполнения, нужно делать ВНУТРИ обработчика
+  // var mapCoords = document.querySelector('.map').getBoundingClientRect();
+  document.getElementById('address').value = evt.clientX + ', ' + evt.clientY;
+};
+
+mainPin.addEventListener('mouseup', onMainPinClick);
+
+var addPinEvents = function () {
+  var mapPinsList = document.querySelectorAll('.map__pin');
+  var onPinClick = function (mapPin, house) {
+    mapPin.addEventListener('click', function () {
+      var previousCard = mapBlock.querySelector('.map__card');
+      if (previousCard) {
+        mapBlock.removeChild(previousCard);
+      }
+      mapBlock.appendChild(renderCard(house));
+    });
+  };
+  for (var i = 1; i < mapPinsList.length; i++) {
+    onPinClick(mapPinsList[i], houses[i - 1]);
+  }
+};
