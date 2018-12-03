@@ -11,6 +11,8 @@ var ROOM_NUM_MIN = 2;
 var ROOM_NUM_MAX = 5;
 var GUESTS_MIN = 1;
 var GUESTS_MAX = 10;
+var MAIN_PIN_CIRCLE_HEIGHT = 62;
+var MAIN_PIN_SIZE_POINT_HEIGHT = 20;
 
 var offerTitles = [
   'Большая уютная квартира',
@@ -212,14 +214,13 @@ var mapBlock = document.querySelector('.map');
 var adForm = document.querySelector('.ad-form');
 var mainPin = document.querySelector('.map__pin--main');
 
-var onMainPinClick = function (evt) {
+var onMainPinClick = function () {
   mapBlock.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
   renderNewPins(houses);
   addPinEvents();
-  mainPin.removeEventListener('mouseup', onMainPinClick); // удаляет обработчик после первого выполнения, нужно делать ВНУТРИ обработчика
-  // var mapCoords = document.querySelector('.map').getBoundingClientRect();
-  document.getElementById('address').value = evt.clientX + ', ' + evt.clientY;
+  mainPin.removeEventListener('mouseup', onMainPinClick);
+  document.getElementById('address').value = parseInt(mainPin.style.left, 10) + ', ' + (parseInt(mainPin.style.top, 10) + (MAIN_PIN_CIRCLE_HEIGHT / 2 + MAIN_PIN_SIZE_POINT_HEIGHT));
 };
 
 mainPin.addEventListener('mouseup', onMainPinClick);
