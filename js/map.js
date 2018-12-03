@@ -215,10 +215,12 @@ var adForm = document.querySelector('.ad-form');
 var mainPin = document.querySelector('.map__pin--main');
 var adFormFieldsets = adForm.querySelectorAll('fieldset');
 
+// Добавила атрибут disabled к полям формы
+
 for (var i = 0; i < adFormFieldsets.length; i++) {
   var adFormFieldset = adFormFieldsets[i];
   adFormFieldset.disabled = true;
-};
+}
 
 var onMainPinClick = function () {
   mapBlock.classList.remove('map--faded');
@@ -244,8 +246,8 @@ var addPinEvents = function () {
       mapBlock.appendChild(renderCard(house));
     });
   };
-  for (var i = 1; i < mapPinsList.length; i++) {
-    onPinClick(mapPinsList[i], houses[i - 1]);
+  for (var k = 1; k < mapPinsList.length; k++) {
+    onPinClick(mapPinsList[k], houses[k - 1]);
   }
 };
 
@@ -253,5 +255,5 @@ var removeFieldsetDisabledAtr = function () {
   for (var j = 0; j < adFormFieldsets.length; j++) {
     var adFormFieldset2 = adFormFieldsets[j];
     adFormFieldset2.removeAttribute('disabled');
-  };
+  }
 };
