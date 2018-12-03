@@ -213,6 +213,12 @@ var houses = getNewHouses();
 var mapBlock = document.querySelector('.map');
 var adForm = document.querySelector('.ad-form');
 var mainPin = document.querySelector('.map__pin--main');
+var adFormFieldsets = adForm.querySelectorAll('fieldset');
+
+for (var i = 0; i < adFormFieldsets.length; i++) {
+  var adFormFieldset = adFormFieldsets[i];
+  adFormFieldset.disabled = true;
+};
 
 var onMainPinClick = function () {
   mapBlock.classList.remove('map--faded');
@@ -221,6 +227,8 @@ var onMainPinClick = function () {
   addPinEvents();
   mainPin.removeEventListener('mouseup', onMainPinClick);
   document.getElementById('address').value = parseInt(mainPin.style.left, 10) + ', ' + (parseInt(mainPin.style.top, 10) + (MAIN_PIN_CIRCLE_HEIGHT / 2 + MAIN_PIN_SIZE_POINT_HEIGHT));
+
+  removeFieldsetDisabledAtr();
 };
 
 mainPin.addEventListener('mouseup', onMainPinClick);
@@ -239,4 +247,11 @@ var addPinEvents = function () {
   for (var i = 1; i < mapPinsList.length; i++) {
     onPinClick(mapPinsList[i], houses[i - 1]);
   }
+};
+
+var removeFieldsetDisabledAtr = function () {
+  for (var j = 0; j < adFormFieldsets.length; j++) {
+    var adFormFieldset2 = adFormFieldsets[j];
+    adFormFieldset2.removeAttribute('disabled');
+  };
 };
