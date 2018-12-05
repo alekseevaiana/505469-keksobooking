@@ -257,3 +257,80 @@ var removeFieldsetDisabledAtr = function () {
     adFormFieldset2.removeAttribute('disabled');
   }
 };
+
+// обработка формы
+
+var titleInput = document.querySelector('#title');
+var priceInput = document.querySelector('#price');
+
+titleInput.addEventListener('invalid', function () {
+  if (titleInput.validity.tooShort) {
+    titleInput.setCustomValidity('Минимальная длина — 2 символов');
+  } else if (titleInput.validity.tooLong) {
+    titleInput.setCustomValidity('Максимальная длина — 100 символов');
+  } else if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Ввeдите заголовок объявления');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
+
+titleInput.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value.length < 30) {
+    target.setCustomValidity('Минимальная длина — 30 символов');
+  } else {
+    target.setCustomValidity('');
+  }
+});
+
+priceInput.addEventListener('invalid', function () {
+  if (priceInput.validity.rangeUnderflow) {
+    priceInput.setCustomValidity('Минимальное значение 0');
+  } else if (priceInput.validity.rangeOverflow) {
+    priceInput.setCustomValidity('Максимальная значение 1000000');
+  } else if (priceInput.validity.valueMissing) {
+    priceInput.setCustomValidity('Ввeдите значение');
+  } else {
+    priceInput.setCustomValidity('');
+  }
+});
+
+priceInput.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value < 0) {
+    target.setCustomValidity('Минимальное значение 0');
+  } else {
+    target.setCustomValidity('');
+  }
+});
+
+// комнаты и гости
+
+var roomsNumberSelect = document.querySelector('#room_number');
+var guestsNumberSelect = document.querySelector('#capacity');
+
+var checkNumberOfGuests = function () {
+  if (roomsNumberSelect.value === '1' && guestsNumberSelect.value !== '1') {
+    guestsNumberSelect.setCustomValidity('В одну комнату только 1 гостя');
+  } else if (roomsNumberSelect.value === '2' && (guestsNumberSelect.value === '3' || guestsNumberSelect.value === '0')) {
+    guestsNumberSelect.setCustomValidity('Больше двух нельзя');
+  } else if (roomsNumberSelect.value === '3' && guestsNumberSelect.value === '0') {
+    guestsNumberSelect.setCustomValidity('Выберите количество гостей');
+  } else if (roomsNumberSelect.value === '100' && guestsNumberSelect.value !== '0') {
+    guestsNumberSelect.setCustomValidity('Не для гостей');
+  } else {
+    guestsNumberSelect.setCustomValidity('');
+  }
+};
+
+checkNumberOfGuests();
+
+roomsNumberSelect.addEventListener('change', function () {
+  checkNumberOfGuests();
+});
+
+guestsNumberSelect.addEventListener('change', function () {
+  checkNumberOfGuests();
+});
+
