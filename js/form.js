@@ -10,13 +10,23 @@
   var priceField = document.querySelector('#price');
   var mainBlock = document.querySelector('main');
 
+  var onLoad = function () {
+    adForm.reset();
+    var successTemplate = document.querySelector('#success').content.querySelector('.success');
+    var successMessage = successTemplate.cloneNode(true);
+    mainBlock.appendChild(successMessage);
+  };
+
+  var onError = function (errorMessage) {
+    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+    var errorBlock = errorTemplate.cloneNode(true);
+    mainBlock.appendChild(errorBlock);
+    var errorMessageParagraph = errorBlock.querySelector('.error__message');
+    errorMessageParagraph.innerText = errorMessage;
+  };
+
   adForm.addEventListener('submit', function (evt) {
-    window.backend.send(new FormData(adForm), function (response) {
-      adForm.reset();
-      var successTemplate = document.querySelector('#success').content.querySelector('.success');
-      var successMessage = successTemplate.cloneNode(true);
-      mainBlock.appendChild(successMessage);
-    });
+    window.backend.send(new FormData(adForm), onLoad, onError);
     evt.preventDefault();
   });
 

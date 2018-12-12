@@ -11,7 +11,7 @@
       if (xhr.status === 200) {
         onLoad(xhr.response);
       } else {
-        onError();
+        onError('Ошибка загрузки объявления');
       }
     });
     xhr.open('POST', sendUrl);
@@ -26,11 +26,20 @@
       if (xhr.status === 200) {
         onLoad(xhr.response);
       } else {
-        onError();
+        onError('Ошибка');
       }
     });
 
     xhr.send();
+
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка соединения');
+    });
+    xhr.addEventListener('timeout', function () {
+      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+    });
+
+    xhr.timeout = 10000; // 10s
   };
 
   window.backend = {

@@ -24,16 +24,18 @@
     pinElementsList.appendChild(pinsFragment);
   };
 
-  var onError = function () {
+  var onError = function (errorMessage) {
     var mainBlock = document.querySelector('main');
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorBlock = errorTemplate.cloneNode(true);
     mainBlock.appendChild(errorBlock);
+    var errorMessageParagraph = errorBlock.querySelector('.error__message');
+    errorMessageParagraph.innerText = errorMessage;
   };
 
   var makePageActive = function () {
     mapBlock.classList.remove('map--faded');
-    window.backend.getData(onLoad, onError); // onError
+    window.backend.getData(onLoad, onError);
     window.form.activateForm();
     updateAddress();
   };
