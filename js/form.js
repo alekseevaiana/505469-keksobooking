@@ -8,11 +8,11 @@
   var guestsNumberSelect = document.querySelector('#capacity');
   var houseTypeSelect = document.querySelector('#type');
   var priceField = document.querySelector('#price');
+  var mainBlock = document.querySelector('main');
 
   adForm.addEventListener('submit', function (evt) {
     window.backend.send(new FormData(adForm), function (response) {
       adForm.reset();
-      var mainBlock = document.querySelector('main');
       var successTemplate = document.querySelector('#success').content.querySelector('.success');
       var successMessage = successTemplate.cloneNode(true);
       mainBlock.appendChild(successMessage);
@@ -22,7 +22,7 @@
 
   titleInput.addEventListener('invalid', function () {
     if (titleInput.validity.tooShort) {
-      titleInput.setCustomValidity('Минимальная длина — 2 символов');
+      titleInput.setCustomValidity('Минимальная длина — 30 символов');
     } else if (titleInput.validity.tooLong) {
       titleInput.setCustomValidity('Максимальная длина — 100 символов');
     } else if (titleInput.validity.valueMissing) {
