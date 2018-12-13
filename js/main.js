@@ -19,18 +19,39 @@
   };
 
   var onLoad = function (houses) {
+    var successPopup = document.querySelector('.success');
     var pinsFragment = window.pin.renderNewPins(houses, onHouseSelect);
     var pinElementsList = document.querySelector('.map__pins');
     pinElementsList.appendChild(pinsFragment);
+    var onPopupEscPress = function (evt) {
+      if (window.utils.isEscEvent(evt)) {
+        closePopup();
+      }
+    };
+    var closePopup = function () {
+      successPopup.classList.add('hidden');
+      document.addEventListener('keydown', onPopupEscPress);
+    };
   };
 
   var onError = function (errorMessage) {
     var mainBlock = document.querySelector('main');
+    var errorPopup = document.querySelector('.error');
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorBlock = errorTemplate.cloneNode(true);
     mainBlock.appendChild(errorBlock);
     var errorMessageParagraph = errorBlock.querySelector('.error__message');
     errorMessageParagraph.innerText = errorMessage;
+    var onPopupEscPress = function (evt) {
+      if (window.utils.isEscEvent(evt)) {
+        closePopup();
+      }
+    };
+
+    var closePopup = function () {
+      errorPopup.classList.add('hidden');
+      document.addEventListener('keydown', onPopupEscPress);
+    };
   };
 
   var makePageActive = function () {
