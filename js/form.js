@@ -17,16 +17,8 @@
     mainBlock.appendChild(successMessage);
   };
 
-  var onError = function (errorMessage) {
-    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorBlock = errorTemplate.cloneNode(true);
-    mainBlock.appendChild(errorBlock);
-    var errorMessageParagraph = errorBlock.querySelector('.error__message');
-    errorMessageParagraph.innerText = errorMessage;
-  };
-
   adForm.addEventListener('submit', function (evt) {
-    window.backend.send(new FormData(adForm), onLoad, onError);
+    window.backend.send(new FormData(adForm), onLoad, window.main.onError);
     evt.preventDefault();
   });
 

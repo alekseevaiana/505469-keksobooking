@@ -4,6 +4,7 @@
 // функция для отправки данных на сервер
   var sendUrl = 'https://js.dump.academy/keksobooking';
   var getDataUrl = 'https://js.dump.academy/keksobooking/data';
+
   var send = function (data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -39,7 +40,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000; // 10s
+    xhr.timeout = 100000;
   };
 
   window.backend = {
