@@ -1,40 +1,12 @@
 'use strict';
 
 (function () {
-  var houses = window.data.getNewHouses();
-
-  var mapBlock = document.querySelector('.map');
-  var mainPin = document.querySelector('.map__pin--main');
-
-  var updateAddress = function () {
-    var left = parseInt(mainPin.style.left, 10);
-    var top = parseInt(mainPin.style.top, 10);
-    window.form.changeAddressField(left, top);
+  var onFirstMouseDownMainPin = function () {
+    window.main.makePageActive();
+    window.main.mainPin.removeEventListener('mousedown', onFirstMouseDownMainPin);
   };
-
-  var onHouseSelect = function (house) {
-    var previousCard = mapBlock.querySelector('.map__card');
-    if (previousCard) {
-      mapBlock.removeChild(previousCard);
-    }
-    mapBlock.appendChild(window.card.renderCard(house));
-  };
-
-  var makePageActive = function () {
-    mapBlock.classList.remove('map--faded');
-
-    window.pin.renderNewPins(houses, onHouseSelect);
-    window.form.activateForm();
-    updateAddress();
-  };
-
-  var onFirstMouseDown = function () {
-    makePageActive();
-
-    mainPin.removeEventListener('mousedown', onFirstMouseDown);
-  };
-  mainPin.addEventListener('mousedown', onFirstMouseDown);
-  mainPin.addEventListener('mousedown', function (evt) {
+  window.main.mainPin.addEventListener('mousedown', onFirstMouseDownMainPin);
+  window.main.mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     var startCoordinats = {
@@ -45,7 +17,7 @@
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      updateAddress();
+      window.main.updateAddress();
 
       var shift = {
         x: startCoordinats.x - moveEvt.clientX,
@@ -57,8 +29,8 @@
         y: moveEvt.clientY
       };
 
-      var top = mainPin.offsetTop - shift.y;
-      var left = mainPin.offsetLeft - shift.x;
+      var top = window.main.mainPin.offsetTop - shift.y;
+      var left = window.main.mainPin.offsetLeft - shift.x;
 
       var pinCenterOffset = window.data.MAIN_PIN_CIRCLE_DIAMETER / 2;
       var totalPinHeight = (window.data.MAIN_PIN_CIRCLE_DIAMETER + window.data.MAIN_PIN_SIZE_POINT_HEIGHT);
@@ -79,14 +51,14 @@
         top = window.data.PIN_LOCATION_TOP_MAX - totalPinHeight;
       }
 
-      mainPin.style.top = top + 'px';
-      mainPin.style.left = left + 'px';
+      window.main.mainPin.style.top = top + 'px';
+      window.main.mainPin.style.left = left + 'px';
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      updateAddress();
+      window.main.updateAddress();
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);

@@ -2,17 +2,15 @@
 
 (function () {
   var translateHouseType = function (type) {
-    if (type === 'palace') {
-      return 'Дворец';
-    }
-    if (type === 'flat') {
-      return 'Квартира';
-    }
-    if (type === 'house') {
-      return 'Дом';
-    }
-    if (type === 'bungalo') {
-      return 'Бунгало';
+    switch (type) {
+      case 'palace':
+        return 'Дворец';
+      case 'flat':
+        return 'Квартира';
+      case 'house':
+        return 'Дом';
+      case 'bungalo':
+        return 'Бунгало';
     }
     return type;
   };
@@ -72,7 +70,7 @@
     houseNewPhotoPlace.appendChild(createHouseNewPhotos(house));
 
     var imageElement = cardElement.querySelector('.popup__avatar');
-    imageElement.src = house.avatar;
+    imageElement.src = house.author.avatar;
 
     return cardElement;
   };
