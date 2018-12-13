@@ -42,6 +42,7 @@
 
   window.main = {
     makePageActive: makePageActive,
+    onError: onError,
     updateAddress: updateAddress,
     mainPin: mainPin
   };
