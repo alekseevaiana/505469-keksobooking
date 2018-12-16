@@ -45,6 +45,12 @@
     filterHandler('#housing-price');
     filterHandler('#housing-rooms');
     filterHandler('#housing-guests');
+    filterHandler('#filter-wifi');
+    filterHandler('#filter-dishwasher');
+    filterHandler('#filter-parking');
+    filterHandler('#filter-washer');
+    filterHandler('#filter-elevator');
+    filterHandler('#filter-conditioner');
   };
 
   var onError = function (errorMessage) {
