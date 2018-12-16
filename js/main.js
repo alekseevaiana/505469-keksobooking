@@ -33,19 +33,18 @@
       renderDataPins(fiteredHouses);
     };
 
-    var filterHandler = function (selectName) {
-      selectName.addEventListener('change', onFilterChange);
+    var filterHandler = function (selector) {
+      var el = document.querySelector(selector);
+
+      el.addEventListener('change', onFilterChange);
     };
 
-    var houseTypeEl = document.querySelector('#housing-type');
-    var housePriceEl = document.querySelector('#housing-price');
-    var houseRoomsEl = document.querySelector('#housing-rooms');
-    var houseGuestsEl = document.querySelector('#housing-guests');
-    // houseTypeEl.addEventListener('change', onFilterChange);
-    filterHandler(houseTypeEl);
-    filterHandler(housePriceEl);
-    filterHandler(houseRoomsEl);
-    filterHandler(houseGuestsEl);
+    // ['#housing-type','#housing-price', '#housing-guests', '#housing-rooms'].forEach(filterHandler)
+
+    filterHandler('#housing-type');
+    filterHandler('#housing-price');
+    filterHandler('#housing-rooms');
+    filterHandler('#housing-guests');
   };
 
   var onError = function (errorMessage) {
@@ -67,10 +66,10 @@
     var price = rawHousingPrice === 'any' ? null : rawHousingPrice;
 
     var rawHousingRoomsValue = document.querySelector('#housing-rooms').value;
-    var rooms = rawHousingRoomsValue === 'any' ? null : rawHousingRoomsValue;
+    var rooms = rawHousingRoomsValue === 'any' ? null : parseInt(rawHousingRoomsValue, 10);
 
     var rawHousingGuestsValue = document.querySelector('#housing-guests').value;
-    var guests = rawHousingGuestsValue === 'any' ? null : rawHousingGuestsValue;
+    var guests = rawHousingGuestsValue === 'any' ? null : parseInt(rawHousingGuestsValue, 10);
 
     var wifi = document.querySelector('#filter-wifi').checked;
     var dishwasher = document.querySelector('#filter-dishwasher').checked;
