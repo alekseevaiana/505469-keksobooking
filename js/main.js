@@ -18,10 +18,34 @@
     mapBlock.appendChild(window.card.renderCard(house));
   };
 
-  var onLoadPins = function (houses) {
+  var renderDataPins = function (houses) {
     var pinsFragment = window.pin.renderNewPins(houses, onHouseSelect);
     var pinElementsList = document.querySelector('.map__pins');
     pinElementsList.appendChild(pinsFragment);
+  };
+
+  var onLoadPins = function (houses) {
+    renderDataPins(houses);
+
+    var onFilterChange = function () {
+      var filterState = getFilters();
+      var fiteredHouses = filterHouses(houses, filterState);
+      renderDataPins(fiteredHouses);
+    };
+
+    var filterHandler = function (selectName) {
+      selectName.addEventListener('change', onFilterChange);
+    };
+
+    var houseTypeEl = document.querySelector('#housing-type');
+    var housePriceEl = document.querySelector('#housing-price');
+    var houseRoomsEl = document.querySelector('#housing-rooms');
+    var houseGuestsEl = document.querySelector('#housing-guests');
+    // houseTypeEl.addEventListener('change', onFilterChange);
+    filterHandler(houseTypeEl);
+    filterHandler(housePriceEl);
+    filterHandler(houseRoomsEl);
+    filterHandler(houseGuestsEl);
   };
 
   var onError = function (errorMessage) {
@@ -34,6 +58,109 @@
     window.form.activateForm();
     updateAddress();
   };
+
+  var getFilters = function () { // возвращает состояние фильтров
+    var rawHousingTypeValue = document.querySelector('#housing-type').value;
+    var type = rawHousingTypeValue === 'any' ? null : rawHousingTypeValue;
+
+    var rawHousingPrice = document.querySelector('#housing-price').value;
+    var price = rawHousingPrice === 'any' ? null : rawHousingPrice;
+
+    var rawHousingRoomsValue = document.querySelector('#housing-rooms').value;
+    var rooms = rawHousingRoomsValue === 'any' ? null : rawHousingRoomsValue;
+
+    var rawHousingGuestsValue = document.querySelector('#housing-guests').value;
+    var guests = rawHousingGuestsValue === 'any' ? null : rawHousingGuestsValue;
+
+    var wifi = document.querySelector('#filter-wifi').checked;
+    var dishwasher = document.querySelector('#filter-dishwasher').checked;
+    var parking = document.querySelector('#filter-parking').checked;
+    var washer = document.querySelector('#filter-washer').checked;
+    var elevator = document.querySelector('#filter-elevator').checked;
+    var conditioner = document.querySelector('#filter-conditioner').checked;
+
+
+    return {
+      type: type, // null ИЛИ palace ИЛИ bungalo ИЛИ flat
+      price: price,
+      rooms: rooms,
+      guests: guests,
+      wifi: wifi,
+      dishwasher: dishwasher,
+      parking: parking,
+      washer: washer,
+      elevator: elevator,
+      conditioner: conditioner
+    };
+  };
+
+  // Вернет true, если house соответствует выбранным фильтрам (filterState)
+  // Вернет false в противном случае
+  var isHouseSatisfiedFilters = function (house, filterState) {
+    var offer = house.offer;
+
+    if (filterState.type !== null) {
+      if (offer.type !== filterState.type) {
+        return false;
+      }
+    }
+
+    if (filterState.price) {
+      if (filterState.price === 'low' && offer.price >= 10000) {
+        return false;
+      }
+      if (filterState.price === 'middle' && (offer.price < 10000 || offer.price >= 50000)) {
+        return false;
+      }
+      if (filterState.price === 'high' && offer.price < 50000) {
+        return false;
+      }
+    }
+
+    if (filterState.rooms !== null) {
+      if (offer.rooms !== filterState.rooms) {
+        return false;
+      }
+    }
+
+    if (filterState.guests !== null) {
+      if (offer.guests !== filterState.guests) {
+        return false;
+      }
+    }
+
+    if (filterState.wifi && !offer.features.includes('wifi')) {
+      return false;
+    }
+
+    if (filterState.dishwasher && !offer.features.includes('dishwasher')) {
+      return false;
+    }
+
+    if (filterState.parking && !offer.features.includes('parking')) {
+      return false;
+    }
+
+    if (filterState.washer && !offer.features.includes('washer')) {
+      return false;
+    }
+
+    if (filterState.elevator && !offer.features.includes('elevator')) {
+      return false;
+    }
+
+    if (filterState.conditioner && !offer.features.includes('conditioner')) {
+      return false;
+    }
+    return true;
+  };
+
+  var filterHouses = function (houses, filterState) {
+    return houses.filter(function (house) {
+      return isHouseSatisfiedFilters(house, filterState);
+    });
+  };
+
 
   window.main = {
     makePageActive: makePageActive,
