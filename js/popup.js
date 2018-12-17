@@ -1,12 +1,9 @@
 'use strict';
 
 (function () {
-  var showErrorPopup = function (errorMessage) {
-    var template = document.querySelector('#error').content.querySelector('.error');
+  var createPopupFromTemplate = function (template) {
     var block = template.cloneNode(true);
     window.data.mainBlock.appendChild(block);
-    var errorMessageParagraph = block.querySelector('.error__message');
-    errorMessageParagraph.innerText = errorMessage;
 
     var closePopup = function () {
       if (block) {
@@ -19,7 +16,6 @@
 
     var onClick = function () {
       closePopup();
-
     };
 
     var onPopupEscPress = function (evt) {
@@ -30,34 +26,22 @@
 
     document.addEventListener('click', onClick);
     document.addEventListener('keydown', onPopupEscPress);
+
+    return block;
+  };
+
+  var showErrorPopup = function (errorMessage) {
+    var template = document.querySelector('#error').content.querySelector('.error');
+
+    var block = createPopupFromTemplate(template);
+
+    var errorMessageParagraph = block.querySelector('.error__message');
+    errorMessageParagraph.innerText = errorMessage;
   };
 
   var showSuccessPopup = function () {
     var template = document.querySelector('#success').content.querySelector('.success');
-    var block = template.cloneNode(true);
-    window.data.mainBlock.appendChild(block);
-    window.data.adForm.reset();
-
-    var closePopup = function () {
-      if (block) {
-        window.data.mainBlock.removeChild(block);
-      }
-    };
-
-    var onClick = function () {
-      closePopup();
-      document.removeEventListener('click', onClick);
-    };
-
-    var onPopupEscPress = function () {
-      if (window.utils.isEscEvent) {
-        closePopup();
-        document.removeEventListener('keydown', onPopupEscPress);
-      }
-    };
-
-    document.addEventListener('click', onClick);
-    document.addEventListener('keydown', onPopupEscPress);
+    createPopupFromTemplate(template);
   };
 
   var cardPopupHandler = function () {

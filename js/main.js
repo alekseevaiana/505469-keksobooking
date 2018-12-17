@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var FILTER_DEBOUNCE_INTERVAL = 500;
+
   var mapBlock = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
 
@@ -32,7 +34,7 @@
       renderDataPins(fiteredHouses);
     };
 
-    var onFilterChangeDebounced = window.utils.debounce(onFilterChange, 500);
+    var onFilterChangeDebounced = window.utils.debounce(onFilterChange, FILTER_DEBOUNCE_INTERVAL);
 
     var filterHandler = function (selector) {
       var el = document.querySelector(selector);

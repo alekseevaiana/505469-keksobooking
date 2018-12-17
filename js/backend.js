@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-// функция для отправки данных на сервер
   var sendUrl = 'https://js.dump.academy/keksobooking';
   var getDataUrl = 'https://js.dump.academy/keksobooking/data';
 
@@ -9,7 +8,7 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      if (xhr.status === window.data.xhrStatuseSuccess) {
+      if (xhr.status === window.data.xhrStatusSuccess) {
         onLoad(xhr.response);
       } else {
         onError('Ошибка загрузки объявления');
@@ -24,7 +23,7 @@
     xhr.responseType = 'json';
     xhr.open('GET', getDataUrl);
     xhr.addEventListener('load', function () {
-      if (xhr.status === window.data.xhrStatuseSuccess) {
+      if (xhr.status === window.data.xhrStatusSuccess) {
         onLoad(xhr.response);
       } else {
         onError('Ошибка');

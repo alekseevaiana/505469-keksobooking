@@ -2,7 +2,7 @@
 
 (function () {
   var titleInput = document.querySelector('#title');
-  var adFormFieldsets = window.data.adForm.querySelectorAll('fieldset');
+  var adFormFieldsets = window.view.adForm.querySelectorAll('fieldset');
   var roomsNumberSelect = document.querySelector('#room_number');
   var guestsNumberSelect = document.querySelector('#capacity');
   var houseTypeSelect = document.querySelector('#type');
@@ -18,8 +18,8 @@
     window.popup.showSuccessPopup();
   };
 
-  window.data.adForm.addEventListener('submit', function (evt) {
-    window.backend.send(new FormData(window.data.adForm), onLoad, window.main.onError);
+  window.view.adForm.addEventListener('submit', function (evt) {
+    window.backend.send(new FormData(window.view.adForm), onLoad, window.main.onError);
     evt.preventDefault();
   });
 
@@ -118,7 +118,7 @@
   };
 
   var activateForm = function () {
-    window.data.adForm.classList.remove('ad-form--disabled');
+    window.view.adForm.classList.remove('ad-form--disabled');
     removeFieldsetDisabledAtr();
   };
 
