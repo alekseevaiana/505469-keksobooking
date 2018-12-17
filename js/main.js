@@ -4,12 +4,6 @@
   var mapBlock = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
 
-  var updateAddress = function () {
-    var left = parseInt(mainPin.style.left, 10);
-    var top = parseInt(mainPin.style.top, 10);
-    window.form.changeAddressField(left, top);
-  };
-
   var onHouseSelect = function (house) {
     var previousCard = mapBlock.querySelector('.map__card');
     if (previousCard) {
@@ -32,7 +26,9 @@
       var cardPopup = document.querySelector('.map__card');
       var filterState = getFilters();
       var fiteredHouses = filterHouses(houses, filterState);
-      cardPopup.classList.add('hidden');
+      if (cardPopup) {
+        cardPopup.classList.add('hidden');
+      }
       renderDataPins(fiteredHouses);
     };
 
@@ -172,7 +168,6 @@
   window.main = {
     makePageActive: makePageActive,
     onError: onError,
-    updateAddress: updateAddress,
     mainPin: mainPin
   };
 })();

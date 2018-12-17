@@ -17,7 +17,7 @@
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      window.main.updateAddress();
+      window.form.updateAddress();
 
       var shift = {
         x: startCoordinats.x - moveEvt.clientX,
@@ -58,7 +58,7 @@
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      window.main.updateAddress();
+      window.form.updateAddress();
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);

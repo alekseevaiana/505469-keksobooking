@@ -9,7 +9,7 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === window.data.xhrStatuseSuccess) {
         onLoad(xhr.response);
       } else {
         onError('Ошибка загрузки объявления');
@@ -24,7 +24,7 @@
     xhr.responseType = 'json';
     xhr.open('GET', getDataUrl);
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === window.data.xhrStatuseSuccess) {
         onLoad(xhr.response);
       } else {
         onError('Ошибка');

@@ -12,6 +12,7 @@
   var adForm = document.querySelector('.ad-form');
   var mainBlock = document.querySelector('main');
   var cardPopup = document.querySelector('.map__card');
+  var xhrStatusSuccess = 200;
 
   window.data = {
     PIN_LOCATION_LEFT_MIN: PIN_LOCATION_LEFT_MIN,
@@ -24,6 +25,7 @@
     MAIN_PIN_SIZE_POINT_HEIGHT: MAIN_PIN_SIZE_POINT_HEIGHT,
     adForm: adForm,
     mainBlock: mainBlock,
-    cardPopup: cardPopup
+    cardPopup: cardPopup,
+    xhrStatuseSuccess: xhrStatusSuccess
   };
 })();

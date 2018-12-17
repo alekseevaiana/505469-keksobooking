@@ -2,13 +2,17 @@
 
 (function () {
   var titleInput = document.querySelector('#title');
-  // var adForm = document.querySelector('.ad-form');
   var adFormFieldsets = window.data.adForm.querySelectorAll('fieldset');
   var roomsNumberSelect = document.querySelector('#room_number');
   var guestsNumberSelect = document.querySelector('#capacity');
   var houseTypeSelect = document.querySelector('#type');
   var priceField = document.querySelector('#price');
-  // var mainBlock = document.querySelector('main');
+
+  var updateAddress = function () {
+    var left = parseInt(window.main.mainPin.style.left, 10);
+    var top = parseInt(window.main.mainPin.style.top, 10);
+    window.form.changeAddressField(left, top);
+  };
 
   var onLoad = function () {
     window.popup.showSuccessPopup();
@@ -127,6 +131,7 @@
   };
 
   window.form = {
+    updateAddress: updateAddress,
     activateForm: activateForm,
     changeAddressField: changeAddressField
   };
