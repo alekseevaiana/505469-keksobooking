@@ -2,29 +2,29 @@
 
 (function () {
   var showErrorPopup = function (errorMessage) {
-    // var window.data.mainBlock = document.querySelector('main');
-    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorBlock = errorTemplate.cloneNode(true);
-    window.data.mainBlock.appendChild(errorBlock);
-    var errorMessageParagraph = errorBlock.querySelector('.error__message');
+    var template = document.querySelector('#error').content.querySelector('.error');
+    var block = template.cloneNode(true);
+    window.data.mainBlock.appendChild(block);
+    var errorMessageParagraph = block.querySelector('.error__message');
     errorMessageParagraph.innerText = errorMessage;
 
     var closePopup = function () {
-      if (errorBlock) {
-        window.data.mainBlock.removeChild(errorBlock);
+      if (block) {
+        window.data.mainBlock.removeChild(block);
       }
+      document.removeEventListener('click', onClick);
+      document.removeEventListener('keydown', onPopupEscPress);
       window.main.makePageActive();
     };
 
     var onClick = function () {
       closePopup();
-      document.removeEventListener('click', onClick);
+
     };
 
-    var onPopupEscPress = function () {
-      if (window.utils.isEscEvent) {
+    var onPopupEscPress = function (evt) {
+      if (window.utils.isEscEvent(evt)) {
         closePopup();
-        document.removeEventListener('keydown', onPopupEscPress);
       }
     };
 
@@ -33,15 +33,14 @@
   };
 
   var showSuccessPopup = function () {
-    var successTemplate = document.querySelector('#success').content.querySelector('.success');
-    var successMessage = successTemplate.cloneNode(true);
-    window.data.mainBlock.appendChild(successMessage);
+    var template = document.querySelector('#success').content.querySelector('.success');
+    var block = template.cloneNode(true);
+    window.data.mainBlock.appendChild(block);
     window.data.adForm.reset();
 
     var closePopup = function () {
-      // successMessage.classList.add('hidden');
-      if (successMessage) {
-        window.data.mainBlock.removeChild(successMessage);
+      if (block) {
+        window.data.mainBlock.removeChild(block);
       }
     };
 

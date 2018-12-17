@@ -14,8 +14,24 @@
     return evt.keyCode === KeyCode.Enter;
   };
 
+
+  var debounce = function (cb, debounceInterval) {
+    var lastTimeout = null;
+
+    return function () {
+      var parameters = arguments;
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(function () {
+        cb.apply(null, parameters);
+      }, debounceInterval);
+    };
+  };
+
   window.utils = {
     isEscEvent: isEscEvent,
-    isEnterEvent: isEnterEvent
+    isEnterEvent: isEnterEvent,
+    debounce: debounce
   };
 })();

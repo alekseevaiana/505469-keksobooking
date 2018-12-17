@@ -32,23 +32,27 @@
       renderDataPins(fiteredHouses);
     };
 
+    var onFilterChangeDebounced = window.utils.debounce(onFilterChange, 500);
+
     var filterHandler = function (selector) {
       var el = document.querySelector(selector);
-      el.addEventListener('change', onFilterChange);
+      el.addEventListener('change', onFilterChangeDebounced);
     };
 
-    // ['#housing-type','#housing-price', '#housing-guests', '#housing-rooms'].forEach(filterHandler)
+    var selectors = [
+      '#housing-type',
+      '#housing-price',
+      '#housing-guests',
+      '#housing-rooms',
+      '#filter-wifi',
+      '#filter-dishwasher',
+      '#filter-parking',
+      '#filter-washer',
+      '#filter-elevator',
+      '#filter-conditioner'
+    ];
 
-    filterHandler('#housing-type');
-    filterHandler('#housing-price');
-    filterHandler('#housing-rooms');
-    filterHandler('#housing-guests');
-    filterHandler('#filter-wifi');
-    filterHandler('#filter-dishwasher');
-    filterHandler('#filter-parking');
-    filterHandler('#filter-washer');
-    filterHandler('#filter-elevator');
-    filterHandler('#filter-conditioner');
+    selectors.forEach(filterHandler);
   };
 
   var onError = function (errorMessage) {
