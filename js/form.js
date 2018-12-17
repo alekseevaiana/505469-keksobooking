@@ -2,23 +2,20 @@
 
 (function () {
   var titleInput = document.querySelector('#title');
-  var adForm = document.querySelector('.ad-form');
-  var adFormFieldsets = adForm.querySelectorAll('fieldset');
+  // var adForm = document.querySelector('.ad-form');
+  var adFormFieldsets = window.data.adForm.querySelectorAll('fieldset');
   var roomsNumberSelect = document.querySelector('#room_number');
   var guestsNumberSelect = document.querySelector('#capacity');
   var houseTypeSelect = document.querySelector('#type');
   var priceField = document.querySelector('#price');
-  var mainBlock = document.querySelector('main');
+  // var mainBlock = document.querySelector('main');
 
   var onLoad = function () {
-    adForm.reset();
-    var successTemplate = document.querySelector('#success').content.querySelector('.success');
-    var successMessage = successTemplate.cloneNode(true);
-    mainBlock.appendChild(successMessage);
+    window.popup.showSuccessPopup();
   };
 
-  adForm.addEventListener('submit', function (evt) {
-    window.backend.send(new FormData(adForm), onLoad, window.main.onError);
+  window.data.adForm.addEventListener('submit', function (evt) {
+    window.backend.send(new FormData(window.data.adForm), onLoad, window.main.onError);
     evt.preventDefault();
   });
 
@@ -117,7 +114,7 @@
   };
 
   var activateForm = function () {
-    adForm.classList.remove('ad-form--disabled');
+    window.data.adForm.classList.remove('ad-form--disabled');
     removeFieldsetDisabledAtr();
   };
 

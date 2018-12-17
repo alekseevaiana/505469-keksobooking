@@ -16,6 +16,6 @@
 
   window.utils = {
     isEscEvent: isEscEvent,
-    isEnterEvent: isEnterEvent,
+    isEnterEvent: isEnterEvent
   };
 })();

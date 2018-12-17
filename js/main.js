@@ -16,6 +16,7 @@
       mapBlock.removeChild(previousCard);
     }
     mapBlock.appendChild(window.card.renderCard(house));
+    window.popup.cardPopupHandler();
   };
 
   var renderDataPins = function (houses) {
@@ -28,14 +29,15 @@
     renderDataPins(houses);
 
     var onFilterChange = function () {
+      var cardPopup = document.querySelector('.map__card');
       var filterState = getFilters();
       var fiteredHouses = filterHouses(houses, filterState);
+      cardPopup.classList.add('hidden');
       renderDataPins(fiteredHouses);
     };
 
     var filterHandler = function (selector) {
       var el = document.querySelector(selector);
-
       el.addEventListener('change', onFilterChange);
     };
 
@@ -61,7 +63,7 @@
     mapBlock.classList.remove('map--faded');
     window.backend.getData(onLoadPins, onError);
     window.form.activateForm();
-    updateAddress();
+    window.form.updateAddress();
   };
 
   var getFilters = function () { // возвращает состояние фильтров

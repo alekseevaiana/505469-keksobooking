@@ -1,33 +1,29 @@
 'use strict';
 
 (function () {
-  var NUMBER_OF_HOUSES = 8;
   var PIN_LOCATION_LEFT_MIN = 40;
   var PIN_LOCATION_LEFT_MAX = 1160;
   var PIN_LOCATION_TOP_MIN = 130;
   var PIN_LOCATION_TOP_MAX = 630;
   var PRICE_MIN = 1000;
   var PRICE_MAX = 1000000;
-  var ROOM_NUM_MIN = 2;
-  var ROOM_NUM_MAX = 5;
-  var GUESTS_MIN = 1;
-  var GUESTS_MAX = 10;
   var MAIN_PIN_CIRCLE_DIAMETER = 62;
   var MAIN_PIN_SIZE_POINT_HEIGHT = 20;
+  var adForm = document.querySelector('.ad-form');
+  var mainBlock = document.querySelector('main');
+  var cardPopup = document.querySelector('.map__card');
 
   window.data = {
-    NUMBER_OF_HOUSES: NUMBER_OF_HOUSES,
     PIN_LOCATION_LEFT_MIN: PIN_LOCATION_LEFT_MIN,
     PIN_LOCATION_LEFT_MAX: PIN_LOCATION_LEFT_MAX,
     PIN_LOCATION_TOP_MIN: PIN_LOCATION_TOP_MIN,
     PIN_LOCATION_TOP_MAX: PIN_LOCATION_TOP_MAX,
     PRICE_MIN: PRICE_MIN,
     PRICE_MAX: PRICE_MAX,
-    ROOM_NUM_MIN: ROOM_NUM_MIN,
-    ROOM_NUM_MAX: ROOM_NUM_MAX,
-    GUESTS_MIN: GUESTS_MIN,
-    GUESTS_MAX: GUESTS_MAX,
     MAIN_PIN_CIRCLE_DIAMETER: MAIN_PIN_CIRCLE_DIAMETER,
-    MAIN_PIN_SIZE_POINT_HEIGHT: MAIN_PIN_SIZE_POINT_HEIGHT
+    MAIN_PIN_SIZE_POINT_HEIGHT: MAIN_PIN_SIZE_POINT_HEIGHT,
+    adForm: adForm,
+    mainBlock: mainBlock,
+    cardPopup: cardPopup
   };
 })();
