@@ -3,6 +3,19 @@
 (function () {
   var FILTER_DEBOUNCE_INTERVAL = 500;
 
+  var filterSelectors = [
+    '#housing-type',
+    '#housing-price',
+    '#housing-guests',
+    '#housing-rooms',
+    '#filter-wifi',
+    '#filter-dishwasher',
+    '#filter-parking',
+    '#filter-washer',
+    '#filter-elevator',
+    '#filter-conditioner'
+  ];
+
   var mapBlock = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
 
@@ -41,20 +54,7 @@
       el.addEventListener('change', onFilterChangeDebounced);
     };
 
-    var selectors = [
-      '#housing-type',
-      '#housing-price',
-      '#housing-guests',
-      '#housing-rooms',
-      '#filter-wifi',
-      '#filter-dishwasher',
-      '#filter-parking',
-      '#filter-washer',
-      '#filter-elevator',
-      '#filter-conditioner'
-    ];
-
-    selectors.forEach(filterHandler);
+    filterSelectors.forEach(filterHandler);
   };
 
   var onError = function (errorMessage) {

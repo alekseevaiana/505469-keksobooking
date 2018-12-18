@@ -1,6 +1,14 @@
 'use strict';
 
 (function () {
+  var TITLE_INPUT_LENGTH_MIN = 30;
+  var TITLE_INPUT_LENGTH_MAX = 100;
+  var Price = {
+    FLAT_MIN: 1000,
+    HOUSE_MIN: 5000,
+    PALACE_MIN: 10000,
+    MAX: 1000000
+  };
   var titleInput = document.querySelector('#title');
   var adFormFieldsets = window.view.adForm.querySelectorAll('fieldset');
   var roomsNumberSelect = document.querySelector('#room_number');
@@ -25,9 +33,9 @@
 
   titleInput.addEventListener('invalid', function () {
     if (titleInput.validity.tooShort) {
-      titleInput.setCustomValidity('Минимальная длина — 30 символов');
+      titleInput.setCustomValidity('Минимальная длина — ' + TITLE_INPUT_LENGTH_MIN + ' символов');
     } else if (titleInput.validity.tooLong) {
-      titleInput.setCustomValidity('Максимальная длина — 100 символов');
+      titleInput.setCustomValidity('Максимальная длина — ' + TITLE_INPUT_LENGTH_MAX + ' символов');
     } else if (titleInput.validity.valueMissing) {
       titleInput.setCustomValidity('Ввeдите заголовок объявления');
     } else {
@@ -37,8 +45,8 @@
 
   titleInput.addEventListener('input', function (evt) {
     var target = evt.target;
-    if (target.value.length < 30) {
-      target.setCustomValidity('Минимальная длина — 30 символов');
+    if (target.value.length < TITLE_INPUT_LENGTH_MIN) {
+      target.setCustomValidity('Минимальная длина — ' + TITLE_INPUT_LENGTH_MIN + ' символов');
     } else {
       target.setCustomValidity('');
     }
@@ -72,14 +80,14 @@
       priceField.min = '0';
       priceField.placeholder = '0';
     } else if (houseTypeSelect.value === 'flat') {
-      priceField.min = '1000';
-      priceField.placeholder = '1000';
+      priceField.min = Price.FLAT_MIN;
+      priceField.placeholder = Price.FLAT_MIN;
     } else if (houseTypeSelect.value === 'house') {
-      priceField.min = '5000';
-      priceField.placeholder = '5000';
+      priceField.min = Price.HOUSE_MIN;
+      priceField.placeholder = Price.HOUSE_MIN;
     } else if (houseTypeSelect.value === 'palace') {
-      priceField.min = '10000';
-      priceField.placeholder = '10000';
+      priceField.min = Price.PALACE_MIN;
+      priceField.placeholder = Price.PALACE_MIN;
     }
   };
 
@@ -92,14 +100,14 @@
   priceField.addEventListener('invalid', function () {
     if (priceField.validity.rangeUnderflow && (priceField.min === '0')) {
       priceField.setCustomValidity('Минимальная цена 0');
-    } else if (priceField.validity.rangeUnderflow && (priceField.min === '1000')) {
-      priceField.setCustomValidity('Минимальная цена 1000');
-    } else if (priceField.validity.rangeUnderflow && (priceField.min === '5000')) {
-      priceField.setCustomValidity('Минимальная цена 5000');
-    } else if (priceField.validity.rangeUnderflow && (priceField.min === '10000')) {
-      priceField.setCustomValidity('Минимальная цена 10000');
+    } else if (priceField.validity.rangeUnderflow && (priceField.min === '' + Price.FLAT_MIN + '')) {
+      priceField.setCustomValidity('Минимальная цена ' + Price.FLAT_MIN + '');
+    } else if (priceField.validity.rangeUnderflow && (priceField.min === '' + Price.HOUSE_MIN + '')) {
+      priceField.setCustomValidity('Минимальная цена ' + Price.HOUSE_MIN + '');
+    } else if (priceField.validity.rangeUnderflow && (priceField.min === '' + Price.PALACE_MIN + '')) {
+      priceField.setCustomValidity('Минимальная цена ' + Price.PALACE_MIN + '');
     } else if (priceField.validity.rangeOverflow) {
-      priceField.setCustomValidity('Максимальная значение 1000000');
+      priceField.setCustomValidity('Максимальная цена ' + Price.MAX + '');
     } else {
       priceField.setCustomValidity('');
     }

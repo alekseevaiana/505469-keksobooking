@@ -29,7 +29,7 @@
   var renderNewPins = function (houses, onHouseSelect) {
     removeOldPins();
     var fragment = document.createDocumentFragment();
-    for (var j = 0; j < Math.min((houses.length), 5); j++) {
+    for (var j = 0; j < Math.min((houses.length), window.data.MAX_PINS); j++) {
       if (houses[j].offer) {
         fragment.appendChild(renderPin(houses[j], onHouseSelect));
       }
