@@ -4,10 +4,10 @@
   var sendUrl = 'https://js.dump.academy/keksobooking';
   var getDataUrl = 'https://js.dump.academy/keksobooking/data';
 
-  var xhr = new XMLHttpRequest();
-  xhr.responseType = 'json';
-
   var send = function (data, onLoad, onError) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+
     xhr.addEventListener('load', function () {
       if (xhr.status === window.data.SUCCESS_CODE) {
         onLoad(xhr.response);
@@ -20,7 +20,10 @@
   };
 
   var getData = function (onLoad, onError) {
-    xhr.open('GET', getDataUrl);
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+
+    xhr.open('GET', getDataUrl + '?' + Math.random());
     xhr.addEventListener('load', function () {
       if (xhr.status === window.data.SUCCESS_CODE) {
         onLoad(xhr.response);
@@ -38,12 +41,11 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 1;
+    xhr.timeout = 100000;
   };
 
   window.backend = {
     send: send,
     getData: getData
   };
-
 })();
