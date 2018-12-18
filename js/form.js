@@ -24,6 +24,14 @@
     window.form.changeAddressField(left, top);
   };
 
+  var changeAddressField = function (left, top) {
+    var pinCenterOffset = window.data.MainPinSize.CIRCLE_DIAMETER / 2;
+    var totalPinHeight = (window.data.MainPinSize.CIRCLE_DIAMETER + window.data.MainPinSize.POINT_HEIGHT);
+    var x = (left + pinCenterOffset);
+    var y = (top + totalPinHeight);
+    document.getElementById('address').value = x + ', ' + y;
+  };
+
   var onLoad = function () {
     window.popup.showSuccessPopup();
   };
@@ -102,14 +110,14 @@
   priceField.addEventListener('invalid', function () {
     if (priceField.validity.rangeUnderflow && (priceField.min === '0')) {
       priceField.setCustomValidity('Минимальная цена 0');
-    } else if (priceField.validity.rangeUnderflow && (priceField.min === '' + Price.FLAT_MIN + '')) {
+    } else if (priceField.validity.rangeUnderflow && (priceField.min === String(Price.FLAT_MIN))) {
       priceField.setCustomValidity('Минимальная цена ' + Price.FLAT_MIN + '');
-    } else if (priceField.validity.rangeUnderflow && (priceField.min === '' + Price.HOUSE_MIN + '')) {
-      priceField.setCustomValidity('Минимальная цена ' + Price.HOUSE_MIN + '');
-    } else if (priceField.validity.rangeUnderflow && (priceField.min === '' + Price.PALACE_MIN + '')) {
-      priceField.setCustomValidity('Минимальная цена ' + Price.PALACE_MIN + '');
+    } else if (priceField.validity.rangeUnderflow && (priceField.min === String(Price.HOUSE_MIN))) {
+      priceField.setCustomValidity('Минимальная цена ' + Price.HOUSE_MIN);
+    } else if (priceField.validity.rangeUnderflow && (priceField.min === String(Price.PALACE_MIN))) {
+      priceField.setCustomValidity('Минимальная цена ' + Price.PALACE_MIN);
     } else if (priceField.validity.rangeOverflow) {
-      priceField.setCustomValidity('Максимальная цена ' + Price.MAX + '');
+      priceField.setCustomValidity('Максимальная цена ' + Price.MAX);
     } else {
       priceField.setCustomValidity('');
     }
@@ -130,14 +138,6 @@
   var activateForm = function () {
     window.view.adForm.classList.remove('ad-form--disabled');
     removeFieldsetDisabledAtr();
-  };
-
-  var changeAddressField = function (left, top) {
-    var pinCenterOffset = window.data.MAIN_PIN_CIRCLE_DIAMETER / 2;
-    var totalPinHeight = (window.data.MAIN_PIN_CIRCLE_DIAMETER + window.data.MAIN_PIN_SIZE_POINT_HEIGHT);
-    var x = (left + pinCenterOffset);
-    var y = (top + totalPinHeight);
-    document.getElementById('address').value = x + ', ' + y;
   };
 
   window.form = {
