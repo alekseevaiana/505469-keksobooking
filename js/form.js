@@ -1,8 +1,10 @@
 'use strict';
 
 (function () {
-  var TITLE_INPUT_LENGTH_MIN = 30;
-  var TITLE_INPUT_LENGTH_MAX = 100;
+  var FormTitleInputLength = {
+    MIN: 30,
+    MAX: 100
+  };
   var Price = {
     FLAT_MIN: 1000,
     HOUSE_MIN: 5000,
@@ -33,9 +35,9 @@
 
   titleInput.addEventListener('invalid', function () {
     if (titleInput.validity.tooShort) {
-      titleInput.setCustomValidity('Минимальная длина — ' + TITLE_INPUT_LENGTH_MIN + ' символов');
+      titleInput.setCustomValidity('Минимальная длина — ' + FormTitleInputLength.MIN + ' символов');
     } else if (titleInput.validity.tooLong) {
-      titleInput.setCustomValidity('Максимальная длина — ' + TITLE_INPUT_LENGTH_MAX + ' символов');
+      titleInput.setCustomValidity('Максимальная длина — ' + FormTitleInputLength.MAX + ' символов');
     } else if (titleInput.validity.valueMissing) {
       titleInput.setCustomValidity('Ввeдите заголовок объявления');
     } else {
@@ -45,8 +47,8 @@
 
   titleInput.addEventListener('input', function (evt) {
     var target = evt.target;
-    if (target.value.length < TITLE_INPUT_LENGTH_MIN) {
-      target.setCustomValidity('Минимальная длина — ' + TITLE_INPUT_LENGTH_MIN + ' символов');
+    if (target.value.length < FormTitleInputLength.MIN) {
+      target.setCustomValidity('Минимальная длина — ' + FormTitleInputLength.MIN + ' символов');
     } else {
       target.setCustomValidity('');
     }

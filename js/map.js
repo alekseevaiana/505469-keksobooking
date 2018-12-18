@@ -32,23 +32,23 @@
       var top = window.main.mainPin.offsetTop - shift.y;
       var left = window.main.mainPin.offsetLeft - shift.x;
 
-      var pinCenterOffset = window.data.MAIN_PIN_CIRCLE_DIAMETER / 2;
-      var totalPinHeight = (window.data.MAIN_PIN_CIRCLE_DIAMETER + window.data.MAIN_PIN_SIZE_POINT_HEIGHT);
+      var pinCenterOffset = window.data.MainPinSize.CIRCLE_DIAMETER / 2;
+      var totalPinHeight = (window.data.MainPinSize.CIRCLE_DIAMETER + window.data.MainPinSize.POINT_HEIGHT);
 
-      if (left < (window.data.PIN_LOCATION_LEFT_MIN - pinCenterOffset)) {
-        left = window.data.PIN_LOCATION_LEFT_MIN - pinCenterOffset;
+      if (left < (window.data.PinLocation.LEFT_MIN - pinCenterOffset)) {
+        left = window.data.PinLocation.LEFT_MIN - pinCenterOffset;
       }
 
-      if (left > (window.data.PIN_LOCATION_LEFT_MAX - pinCenterOffset)) {
-        left = window.data.PIN_LOCATION_LEFT_MAX - pinCenterOffset;
+      if (left > (window.data.PinLocation.LEFT_MAX - pinCenterOffset)) {
+        left = window.data.PinLocation.LEFT_MAX - pinCenterOffset;
       }
 
-      if (top < window.data.PIN_LOCATION_TOP_MIN - totalPinHeight) {
-        top = window.data.PIN_LOCATION_TOP_MIN - totalPinHeight;
+      if (top < window.data.PinLocation.TOP_MIN - totalPinHeight) {
+        top = window.data.PinLocation.TOP_MIN - totalPinHeight;
       }
 
-      if (top > window.data.PIN_LOCATION_TOP_MAX - totalPinHeight) {
-        top = window.data.PIN_LOCATION_TOP_MAX - totalPinHeight;
+      if (top > window.data.PinLocation.TOP_MAX - totalPinHeight) {
+        top = window.data.PinLocation.TOP_MAX - totalPinHeight;
       }
 
       window.main.mainPin.style.top = top + 'px';

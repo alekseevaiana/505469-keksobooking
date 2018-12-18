@@ -2,10 +2,11 @@
 
 (function () {
   var MAX_PINS = 5;
-
-  var MAIN_PIN_CIRCLE_DIAMETER = 62;
-  var MAIN_PIN_SIZE_POINT_HEIGHT = 20;
   var SUCCESS_CODE = 200;
+  var MainPinSize = {
+    CIRCLE_DIAMETER: 62,
+    POINT_HEIGHT: 20
+  };
 
   var PinLocation = {
     LEFT_MIN: 40,
@@ -16,12 +17,8 @@
 
   window.data = {
     MAX_PINS: MAX_PINS,
-    PIN_LOCATION_LEFT_MIN: PinLocation.LEFT_MIN,
-    PIN_LOCATION_LEFT_MAX: PinLocation.LEFT_MAX,
-    PIN_LOCATION_TOP_MIN: PinLocation.TOP_MIN,
-    PIN_LOCATION_TOP_MAX: PinLocation.TOP_MAX,
-    MAIN_PIN_CIRCLE_DIAMETER: MAIN_PIN_CIRCLE_DIAMETER,
-    MAIN_PIN_SIZE_POINT_HEIGHT: MAIN_PIN_SIZE_POINT_HEIGHT,
-    SUCCESS_CODE: SUCCESS_CODE
+    SUCCESS_CODE: SUCCESS_CODE,
+    PinLocation: PinLocation,
+    MainPinSize: MainPinSize
   };
 })();
