@@ -3,11 +3,21 @@
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-  var fileChooser = document.querySelector('.ad-form-header__upload input[type=file]');
-  var preview = document.querySelector('.ad-form-header__preview img');
+  var avatarChooser = document.querySelector('.ad-form-header__upload input[type=file]');
+  var avatarPreview = document.querySelector('.ad-form-header__preview img');
+  var photoChooser = document.querySelector('.ad-form__upload input[type=file]');
+  var photoPreviewPlace = document.querySelector('.ad-form__photo');
 
-  fileChooser.addEventListener('change', function () {
-    var file = fileChooser.files[0];
+  var photoPreviewImg = document.createElement('img');
+
+  photoPreviewImg.src = '';
+  photoPreviewImg.width = '70';
+  photoPreviewImg.height = '77';
+  photoPreviewImg.alt = 'Фото дома';
+  photoPreviewPlace.appendChild(photoPreviewImg);
+
+  var uploadPicture = function (chooser, preview) {
+    var file = chooser.files[0];
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
@@ -23,5 +33,13 @@
 
       reader.readAsDataURL(file);
     }
+  };
+
+  avatarChooser.addEventListener('change', function () {
+    uploadPicture(avatarChooser, avatarPreview);
+  });
+
+  photoChooser.addEventListener('change', function () {
+    uploadPicture(photoChooser, photoPreviewImg);
   });
 })();
