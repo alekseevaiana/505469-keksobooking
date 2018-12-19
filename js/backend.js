@@ -2,7 +2,7 @@
 
 (function () {
   var XHR_TIMEOUT = 10 * 1000;
-  
+
   var sendUrl = 'https://js.dump.academy/keksobooking';
   var getDataUrl = 'https://js.dump.academy/keksobooking/data';
 

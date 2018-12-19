@@ -8,14 +8,6 @@
   var photoChooser = document.querySelector('.ad-form__upload input[type=file]');
   var photoPreviewPlace = document.querySelector('.ad-form__photo');
 
-  var photoPreviewImg = document.createElement('img');
-
-  photoPreviewImg.src = '';
-  photoPreviewImg.width = '70';
-  photoPreviewImg.height = '77';
-  photoPreviewImg.alt = 'Фото дома';
-  photoPreviewPlace.appendChild(photoPreviewImg);
-
   var uploadPicture = function (chooser, preview) {
     var file = chooser.files[0];
     var fileName = file.name.toLowerCase();
@@ -40,6 +32,12 @@
   });
 
   photoChooser.addEventListener('change', function () {
+    var photoPreviewImg = document.createElement('img');
+    photoPreviewImg.src = '';
+    photoPreviewImg.width = '70';
+    photoPreviewImg.height = '77';
+    photoPreviewImg.alt = 'Фото дома';
+    photoPreviewPlace.appendChild(photoPreviewImg);
     uploadPicture(photoChooser, photoPreviewImg);
   });
 })();
