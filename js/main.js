@@ -68,7 +68,7 @@
     window.form.updateAddress();
   };
 
-  var getFilters = function () { // возвращает состояние фильтров
+  var getFilters = function () {
     var rawHousingTypeValue = document.querySelector('#housing-type').value;
     var type = rawHousingTypeValue === 'any' ? null : rawHousingTypeValue;
 
@@ -90,7 +90,7 @@
 
 
     return {
-      type: type, // null ИЛИ palace ИЛИ bungalo ИЛИ flat
+      type: type,
       price: price,
       rooms: rooms,
       guests: guests,
@@ -103,8 +103,6 @@
     };
   };
 
-  // Вернет true, если house соответствует выбранным фильтрам (filterState)
-  // Вернет false в противном случае
   var isHouseSatisfiedFilters = function (house, filterState) {
     var offer = house.offer;
 
