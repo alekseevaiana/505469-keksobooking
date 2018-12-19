@@ -134,30 +134,28 @@
       adFormFieldset2.removeAttribute('disabled');
     }
   };
+
   var chooseTime = function () {
     var timeInSelect = document.querySelector('#timein');
     var timeOutSelect = document.querySelector('#timeout');
 
-    timeInSelect.addEventListener('change', function () {
-      if (timeInSelect.value === '12:00') {
-        timeOutSelect.value = '12:00';
-      } else if (timeInSelect.value === '13:00') {
-        timeOutSelect.value = '13:00';
-      } else if (timeInSelect.value === '14:00') {
-        timeOutSelect.value = '14:00';
+    var onChangeTimeSelect = function (onSelect, changedSelect) {
+      for (var k = 0; k < onSelect.options.length; k++) {
+        if (onSelect.options[k].selected) {
+          changedSelect.options[k].selected = true;
+        }
       }
+    };
+
+    timeInSelect.addEventListener('change', function () {
+      onChangeTimeSelect(timeInSelect, timeOutSelect);
     });
 
     timeOutSelect.addEventListener('change', function () {
-      if (timeOutSelect.value === '12:00') {
-        timeInSelect.value = '12:00';
-      } else if (timeOutSelect.value === '13:00') {
-        timeInSelect.value = '13:00';
-      } else if (timeOutSelect.value === '14:00') {
-        timeInSelect.value = '14:00';
-      }
+      onChangeTimeSelect(timeOutSelect, timeInSelect);
     });
   };
+
   chooseTime();
 
   var activateForm = function () {
