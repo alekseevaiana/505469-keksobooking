@@ -57,7 +57,7 @@
     addTextContent('text--address', house.offer.address);
     addTextContent('text--price', house.offer.price + '₽/ночь');
     addTextContent('text--capacity', house.offer.rooms + ' комнаты для ' + house.offer.guests + ' гостей');
-    addTextContent('text--time', 'Заезд после ' + house.offer.checkin[1] + ', выезд до ' + house.offer.checkout[2]);
+    addTextContent('text--time', 'Заезд после ' + house.offer.checkin + ', выезд до ' + house.offer.checkout);
     addTextContent('description', house.offer.description);
     addTextContent('type', translateHouseType(house.offer.type));
 

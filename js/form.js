@@ -1,32 +1,51 @@
 'use strict';
 
 (function () {
+  var FormTitleInputLength = {
+    MIN: 30,
+    MAX: 100
+  };
+  var Price = {
+    FLAT_MIN: 1000,
+    HOUSE_MIN: 5000,
+    PALACE_MIN: 10000,
+    MAX: 1000000
+  };
   var titleInput = document.querySelector('#title');
-  var adForm = document.querySelector('.ad-form');
-  var adFormFieldsets = adForm.querySelectorAll('fieldset');
+  var adFormFieldsets = window.view.adForm.querySelectorAll('fieldset');
   var roomsNumberSelect = document.querySelector('#room_number');
   var guestsNumberSelect = document.querySelector('#capacity');
   var houseTypeSelect = document.querySelector('#type');
   var priceField = document.querySelector('#price');
-  var mainBlock = document.querySelector('main');
 
-  var onLoad = function () {
-    adForm.reset();
-    var successTemplate = document.querySelector('#success').content.querySelector('.success');
-    var successMessage = successTemplate.cloneNode(true);
-    mainBlock.appendChild(successMessage);
+  var updateAddress = function () {
+    var left = parseInt(window.main.mainPin.style.left, 10);
+    var top = parseInt(window.main.mainPin.style.top, 10);
+    window.form.changeAddressField(left, top);
   };
 
-  adForm.addEventListener('submit', function (evt) {
-    window.backend.send(new FormData(adForm), onLoad, window.main.onError);
+  var changeAddressField = function (left, top) {
+    var pinCenterOffset = window.data.MainPinSize.CIRCLE_DIAMETER / 2;
+    var totalPinHeight = (window.data.MainPinSize.CIRCLE_DIAMETER + window.data.MainPinSize.POINT_HEIGHT);
+    var x = (left + pinCenterOffset);
+    var y = (top + totalPinHeight);
+    document.getElementById('address').value = x + ', ' + y;
+  };
+
+  var onLoad = function () {
+    window.popup.showSuccessPopup();
+  };
+
+  window.view.adForm.addEventListener('submit', function (evt) {
+    window.backend.send(new FormData(window.view.adForm), onLoad, window.main.onError);
     evt.preventDefault();
   });
 
   titleInput.addEventListener('invalid', function () {
     if (titleInput.validity.tooShort) {
-      titleInput.setCustomValidity('Минимальная длина — 30 символов');
+      titleInput.setCustomValidity('Минимальная длина — ' + FormTitleInputLength.MIN + ' символов');
     } else if (titleInput.validity.tooLong) {
-      titleInput.setCustomValidity('Максимальная длина — 100 символов');
+      titleInput.setCustomValidity('Максимальная длина — ' + FormTitleInputLength.MAX + ' символов');
     } else if (titleInput.validity.valueMissing) {
       titleInput.setCustomValidity('Ввeдите заголовок объявления');
     } else {
@@ -36,8 +55,8 @@
 
   titleInput.addEventListener('input', function (evt) {
     var target = evt.target;
-    if (target.value.length < 30) {
-      target.setCustomValidity('Минимальная длина — 30 символов');
+    if (target.value.length < FormTitleInputLength.MIN) {
+      target.setCustomValidity('Минимальная длина — ' + FormTitleInputLength.MIN + ' символов');
     } else {
       target.setCustomValidity('');
     }
@@ -71,14 +90,14 @@
       priceField.min = '0';
       priceField.placeholder = '0';
     } else if (houseTypeSelect.value === 'flat') {
-      priceField.min = '1000';
-      priceField.placeholder = '1000';
+      priceField.min = Price.FLAT_MIN;
+      priceField.placeholder = Price.FLAT_MIN;
     } else if (houseTypeSelect.value === 'house') {
-      priceField.min = '5000';
-      priceField.placeholder = '5000';
+      priceField.min = Price.HOUSE_MIN;
+      priceField.placeholder = Price.HOUSE_MIN;
     } else if (houseTypeSelect.value === 'palace') {
-      priceField.min = '10000';
-      priceField.placeholder = '10000';
+      priceField.min = Price.PALACE_MIN;
+      priceField.placeholder = Price.PALACE_MIN;
     }
   };
 
@@ -91,14 +110,14 @@
   priceField.addEventListener('invalid', function () {
     if (priceField.validity.rangeUnderflow && (priceField.min === '0')) {
       priceField.setCustomValidity('Минимальная цена 0');
-    } else if (priceField.validity.rangeUnderflow && (priceField.min === '1000')) {
-      priceField.setCustomValidity('Минимальная цена 1000');
-    } else if (priceField.validity.rangeUnderflow && (priceField.min === '5000')) {
-      priceField.setCustomValidity('Минимальная цена 5000');
-    } else if (priceField.validity.rangeUnderflow && (priceField.min === '10000')) {
-      priceField.setCustomValidity('Минимальная цена 10000');
+    } else if (priceField.validity.rangeUnderflow && (priceField.min === String(Price.FLAT_MIN))) {
+      priceField.setCustomValidity('Минимальная цена ' + Price.FLAT_MIN + '');
+    } else if (priceField.validity.rangeUnderflow && (priceField.min === String(Price.HOUSE_MIN))) {
+      priceField.setCustomValidity('Минимальная цена ' + Price.HOUSE_MIN);
+    } else if (priceField.validity.rangeUnderflow && (priceField.min === String(Price.PALACE_MIN))) {
+      priceField.setCustomValidity('Минимальная цена ' + Price.PALACE_MIN);
     } else if (priceField.validity.rangeOverflow) {
-      priceField.setCustomValidity('Максимальная значение 1000000');
+      priceField.setCustomValidity('Максимальная цена ' + Price.MAX);
     } else {
       priceField.setCustomValidity('');
     }
@@ -117,19 +136,12 @@
   };
 
   var activateForm = function () {
-    adForm.classList.remove('ad-form--disabled');
+    window.view.adForm.classList.remove('ad-form--disabled');
     removeFieldsetDisabledAtr();
   };
 
-  var changeAddressField = function (left, top) {
-    var pinCenterOffset = window.data.MAIN_PIN_CIRCLE_DIAMETER / 2;
-    var totalPinHeight = (window.data.MAIN_PIN_CIRCLE_DIAMETER + window.data.MAIN_PIN_SIZE_POINT_HEIGHT);
-    var x = (left + pinCenterOffset);
-    var y = (top + totalPinHeight);
-    document.getElementById('address').value = x + ', ' + y;
-  };
-
   window.form = {
+    updateAddress: updateAddress,
     activateForm: activateForm,
     changeAddressField: changeAddressField
   };
