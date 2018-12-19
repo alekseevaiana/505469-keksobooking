@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var XHR_TIMEOUT = 10 * 1000;
+  
   var sendUrl = 'https://js.dump.academy/keksobooking';
   var getDataUrl = 'https://js.dump.academy/keksobooking/data';
 
@@ -41,7 +43,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 100000;
+    xhr.timeout = XHR_TIMEOUT;
   };
 
   window.backend = {

@@ -134,6 +134,31 @@
       adFormFieldset2.removeAttribute('disabled');
     }
   };
+  var chooseTime = function () {
+    var timeInSelect = document.querySelector('#timein');
+    var timeOutSelect = document.querySelector('#timeout');
+
+    timeInSelect.addEventListener('change', function () {
+      if (timeInSelect.value === '12:00') {
+        timeOutSelect.value = '12:00';
+      } else if (timeInSelect.value === '13:00') {
+        timeOutSelect.value = '13:00';
+      } else if (timeInSelect.value === '14:00') {
+        timeOutSelect.value = '14:00';
+      }
+    });
+
+    timeOutSelect.addEventListener('change', function () {
+      if (timeOutSelect.value === '12:00') {
+        timeInSelect.value = '12:00';
+      } else if (timeOutSelect.value === '13:00') {
+        timeInSelect.value = '13:00';
+      } else if (timeOutSelect.value === '14:00') {
+        timeInSelect.value = '14:00';
+      }
+    });
+  };
+  chooseTime();
 
   var activateForm = function () {
     window.view.adForm.classList.remove('ad-form--disabled');
@@ -146,4 +171,3 @@
     changeAddressField: changeAddressField
   };
 })();
-
