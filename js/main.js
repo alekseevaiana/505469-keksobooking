@@ -19,17 +19,36 @@
   var mapBlock = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
 
-  var onHouseSelect = function (house) {
-    var previousCard = mapBlock.querySelector('.map__card');
-    if (previousCard) {
-      mapBlock.removeChild(previousCard);
+  // var onHouseSelect = function (house) {
+  //   var previousCard = mapBlock.querySelector('.map__card');
+  //   if (previousCard) {
+  //     mapBlock.removeChild(previousCard);
+  //   }
+  //   mapBlock.appendChild(window.card.renderCard(house));
+  //   window.popup.cardPopupHandler();
+  // };
+
+  var updatePageInformation = function () {
+    var adForm = document.querySelector('.ad-form');
+    var mapPinMain = document.querySelector('.map__pin--main');
+    var left = window.data.MainPinStartСoord.left;
+    var top = window.data.MainPinStartСoord.top;
+    adForm.reset();
+    adForm.classList.add('ad-form--disabled');
+    window.form.addFormFieldsetDisabledAtr();
+    mapBlock.classList.add('map--faded');
+    mapPinMain.style.left = left + 'px';
+    mapPinMain.style.top = top + 'px';
+    window.form.updateAddress();
+    window.pin.removeOldPins();
+    var openedCard = mapBlock.querySelector('.map__card');
+    if (openedCard) {
+      mapBlock.removeChild(openedCard);
     }
-    mapBlock.appendChild(window.card.renderCard(house));
-    window.popup.cardPopupHandler();
   };
 
   var renderDataPins = function (houses) {
-    var pinsFragment = window.pin.renderNewPins(houses, onHouseSelect);
+    var pinsFragment = window.pin.renderNewPins(houses, window.card.onHouseSelect);
     var pinElementsList = document.querySelector('.map__pins');
     pinElementsList.appendChild(pinsFragment);
   };
@@ -172,6 +191,7 @@
   window.main = {
     makePageActive: makePageActive,
     onError: onError,
-    mainPin: mainPin
+    mainPin: mainPin,
+    updatePageInformation: updatePageInformation
   };
 })();

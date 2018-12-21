@@ -75,7 +75,18 @@
     return cardElement;
   };
 
+  var onHouseSelect = function (house) {
+    var mapBlock = window.view.mapBlock;
+    var openedCard = mapBlock.querySelector('.map__card');
+    if (openedCard) {
+      mapBlock.removeChild(openedCard);
+    }
+    mapBlock.appendChild(window.card.renderCard(house));
+    window.popup.cardPopupHandler();
+  };
+
   window.card = {
-    renderCard: renderCard
+    renderCard: renderCard,
+    onHouseSelect: onHouseSelect
   };
 })();

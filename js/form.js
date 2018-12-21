@@ -21,6 +21,8 @@
   var updateAddress = function () {
     var left = parseInt(window.main.mainPin.style.left, 10);
     var top = parseInt(window.main.mainPin.style.top, 10);
+    // var left = window.data.MainPinStartСoord.left;
+    // var top = window.data.MainPinStartСoord.top;
     window.form.changeAddressField(left, top);
   };
 
@@ -123,10 +125,13 @@
     }
   });
 
-  for (var i = 0; i < adFormFieldsets.length; i++) {
-    var adFormFieldset = adFormFieldsets[i];
-    adFormFieldset.disabled = true;
-  }
+  var addFormFieldsetDisabledAtr = function () {
+    for (var i = 0; i < adFormFieldsets.length; i++) {
+      var adFormFieldset = adFormFieldsets[i];
+      adFormFieldset.disabled = true;
+    }
+  };
+  addFormFieldsetDisabledAtr();
 
   var removeFieldsetDisabledAtr = function () {
     for (var j = 0; j < adFormFieldsets.length; j++) {
@@ -163,9 +168,15 @@
     removeFieldsetDisabledAtr();
   };
 
+  var adFormReset = document.querySelector('.ad-form__reset');
+  adFormReset.addEventListener('click', function () {
+    window.main.updatePageInformation();
+  });
+
   window.form = {
     updateAddress: updateAddress,
     activateForm: activateForm,
-    changeAddressField: changeAddressField
+    changeAddressField: changeAddressField,
+    addFormFieldsetDisabledAtr: addFormFieldsetDisabledAtr
   };
 })();

@@ -3,7 +3,7 @@
 (function () {
   var onFirstMouseDownMainPin = function () {
     window.main.makePageActive();
-    window.main.mainPin.removeEventListener('mousedown', onFirstMouseDownMainPin);
+    // window.main.mainPin.removeEventListener('mousedown', onFirstMouseDownMainPin);
   };
   window.main.mainPin.addEventListener('mousedown', onFirstMouseDownMainPin);
   window.main.mainPin.addEventListener('mousedown', function (evt) {

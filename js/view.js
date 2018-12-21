@@ -2,8 +2,10 @@
 
 (function () {
   var adForm = document.querySelector('.ad-form');
+  var mapBlock = document.querySelector('.map');
 
   window.view = {
-    adForm: adForm
+    adForm: adForm,
+    mapBlock: mapBlock
   };
 })();

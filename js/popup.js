@@ -33,7 +33,6 @@
   };
 
   var showSuccessPopup = function () {
-    var adForm = document.querySelector('.ad-form');
     var mainBlock = document.querySelector('main');
     var successTemplate = document.querySelector('#success').content.querySelector('.success');
     var successMessage = successTemplate.cloneNode(true);
@@ -43,7 +42,7 @@
       if (successMessage) {
         mainBlock.removeChild(successMessage);
       }
-      adForm.reset();
+      window.main.updatePageInformation();
       document.removeEventListener('click', onClick);
       document.removeEventListener('keydown', onPopupEscPress);
     };

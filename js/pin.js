@@ -38,7 +38,8 @@
   };
 
   window.pin = {
-    renderNewPins: renderNewPins
+    renderNewPins: renderNewPins,
+    removeOldPins: removeOldPins
   };
 
 })();

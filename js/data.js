@@ -8,6 +8,11 @@
     POINT_HEIGHT: 20
   };
 
+  var MainPinStartСoord = {
+    left: 570,
+    top: 375
+  };
+
   var PinLocation = {
     LEFT_MIN: 40,
     LEFT_MAX: 1160,
@@ -19,6 +24,7 @@
     MAX_PINS: MAX_PINS,
     SUCCESS_CODE: SUCCESS_CODE,
     PinLocation: PinLocation,
-    MainPinSize: MainPinSize
+    MainPinSize: MainPinSize,
+    MainPinStartСoord: MainPinStartСoord
   };
 })();
