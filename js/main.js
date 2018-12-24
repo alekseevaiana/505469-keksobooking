@@ -19,15 +19,6 @@
   var mapBlock = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
 
-  // var onHouseSelect = function (house) {
-  //   var previousCard = mapBlock.querySelector('.map__card');
-  //   if (previousCard) {
-  //     mapBlock.removeChild(previousCard);
-  //   }
-  //   mapBlock.appendChild(window.card.renderCard(house));
-  //   window.popup.cardPopupHandler();
-  // };
-
   var updatePageInformation = function () {
     var adForm = document.querySelector('.ad-form');
     var mapPinMain = document.querySelector('.map__pin--main');

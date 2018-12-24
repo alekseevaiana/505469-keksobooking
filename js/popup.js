@@ -67,6 +67,10 @@
     var cardPopupCloseBtn = cardPopup.querySelector('.popup__close');
 
     var closePopup = function () {
+      var activePin = document.querySelector('.map__pin--active');
+      if (activePin) {
+        activePin.classList.remove('map__pin--active');
+      }
       cardPopup.classList.add('hidden');
       document.removeEventListener('keydown', onPopupEscPress);
     };

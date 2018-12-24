@@ -13,7 +13,12 @@
     pinElement.querySelector('.map__pin img').setAttribute('src', house.author.avatar);
     pinElement.addEventListener('click', function (evt) {
       evt.preventDefault();
+      var previousActivePin = document.querySelector('.map__pin--active');
+      if (previousActivePin) {
+        previousActivePin.classList.remove('map__pin--active');
+      }
       onHouseSelect(house);
+      pinElement.classList.add('map__pin--active');
     });
     return pinElement;
   };

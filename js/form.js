@@ -173,6 +173,9 @@
     window.main.updatePageInformation();
   });
 
+  var addressInput = document.querySelector('#address');
+  addressInput.setAttribute('disabled', 'disabled');
+
   window.form = {
     updateAddress: updateAddress,
     activateForm: activateForm,
