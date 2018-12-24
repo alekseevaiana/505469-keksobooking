@@ -21,8 +21,6 @@
   var updateAddress = function () {
     var left = parseInt(window.main.mainPin.style.left, 10);
     var top = parseInt(window.main.mainPin.style.top, 10);
-    // var left = window.data.MainPinStartСoord.left;
-    // var top = window.data.MainPinStartСoord.top;
     window.form.changeAddressField(left, top);
   };
 

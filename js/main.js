@@ -22,8 +22,8 @@
   var updatePageInformation = function () {
     var adForm = document.querySelector('.ad-form');
     var mapPinMain = document.querySelector('.map__pin--main');
-    var left = window.data.MainPinStartСoord.left;
-    var top = window.data.MainPinStartСoord.top;
+    var left = window.data.MainPinStartCoord.left;
+    var top = window.data.MainPinStartCoord.top;
     adForm.reset();
     adForm.classList.add('ad-form--disabled');
     window.form.addFormFieldsetDisabledAtr();

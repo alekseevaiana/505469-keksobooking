@@ -8,7 +8,7 @@
     POINT_HEIGHT: 20
   };
 
-  var MainPinStartСoord = {
+  var MainPinStartCoord = {
     left: 570,
     top: 375
   };
@@ -25,6 +25,6 @@
     SUCCESS_CODE: SUCCESS_CODE,
     PinLocation: PinLocation,
     MainPinSize: MainPinSize,
-    MainPinStartСoord: MainPinStartСoord
+    MainPinStartCoord: MainPinStartCoord
   };
 })();
