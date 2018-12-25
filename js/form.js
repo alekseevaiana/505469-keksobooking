@@ -31,7 +31,7 @@
     var totalPinHeight = (window.data.MainPinSize.CIRCLE_DIAMETER + window.data.MainPinSize.POINT_HEIGHT);
     var x = (left + pinCenterOffset);
     var y = (top + totalPinHeight);
-    document.getElementById('address').value = x + ', ' + y;
+    document.querySelector('#address').value = x + ', ' + y;
   };
 
   var onLoad = function () {
