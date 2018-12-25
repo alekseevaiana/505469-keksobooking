@@ -22,9 +22,13 @@
   var updatePageInformation = function () {
     var adForm = document.querySelector('.ad-form');
     var mapPinMain = document.querySelector('.map__pin--main');
+    var photosPlace = document.querySelector('.ad-form__photo');
+    var avatarPlace = document.querySelector('.ad-form-header__preview img');
     var left = window.data.MainPinStartCoord.left;
     var top = window.data.MainPinStartCoord.top;
     adForm.reset();
+    photosPlace.innerHTML = '';
+    avatarPlace.src = 'img/muffin-grey.svg';
     adForm.classList.add('ad-form--disabled');
     window.form.addFormFieldsetDisabledAtr();
     mapBlock.classList.add('map--faded');

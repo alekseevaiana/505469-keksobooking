@@ -18,6 +18,8 @@
   var houseTypeSelect = document.querySelector('#type');
   var priceField = document.querySelector('#price');
 
+  window.view.adForm.classList.add('ad-form--disabled');
+
   var updateAddress = function () {
     var left = parseInt(window.main.mainPin.style.left, 10);
     var top = parseInt(window.main.mainPin.style.top, 10);
@@ -170,9 +172,6 @@
   adFormReset.addEventListener('click', function () {
     window.main.updatePageInformation();
   });
-
-  var addressInput = document.querySelector('#address');
-  addressInput.setAttribute('disabled', 'disabled');
 
   window.form = {
     updateAddress: updateAddress,
